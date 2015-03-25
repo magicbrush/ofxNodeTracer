@@ -3,7 +3,11 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	Tracer.reset(new ofxNodeTracer(&N));
-	step = 5.0f;
+	step = 40.0f;
+
+	//GUI.setName("GUI");
+	GUI.setup("GUI");
+	GUI.add(Tracer->getParameters());
 }
 
 //--------------------------------------------------------------
@@ -21,6 +25,7 @@ void ofApp::draw(){
 		Np.draw();
 	}
 	N.draw();
+	GUI.draw();
 }
 
 //--------------------------------------------------------------
@@ -47,9 +52,9 @@ void ofApp::mouseDragged(int x, int y, int button){
 void ofApp::mousePressed(int x, int y, int button){
 	ofVec3f Pos = ofVec3f(x,y,0);
 	ofVec3f Scl = ofVec3f(
-		ofRandom(0.5f,1.5f),
-		ofRandom(0.5f,1.5f),
-		ofRandom(0.5f,1.5f));
+		ofRandom(0.1f,5.0f),
+		ofRandom(0.1f,5.0f),
+		ofRandom(0.1f,5.0f));
 	ofVec3f Rot = ofVec3f(
 		ofRandom(-180.0f,180.0f),
 		ofRandom(-180.0f,180.0f),
@@ -61,11 +66,15 @@ void ofApp::mousePressed(int x, int y, int button){
 		Rot.z,ofVec3f(0,0,1));
 
 	ofMatrix4x4 Mat;
-	Mat.translate(Pos);
+	
+	//
 	Mat.scale(Scl);
-	Mat.rotate(Q);
+	Mat.rotate(Q);	
+	Mat.translate(Pos);	
 
 	N.setTransformMatrix(Mat);
+
+	Tracer->trace();
 
 }
 
@@ -87,4 +96,13 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+void myNode::customDraw()
+{
+	ofDrawAxis(50);
+	ofPushStyle();
+	ofSetColor(ofColor::blue);
+	ofCircle(ofPoint(0,0),25);
+	ofPopStyle();
 }

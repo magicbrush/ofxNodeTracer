@@ -2,6 +2,17 @@
 
 #include "ofMain.h"
 #include "ofxNodeTracer.h"
+#include "ofxGui.h"
+
+
+class myNode:
+	public ofNode
+{
+public:
+
+private:
+	virtual void customDraw();
+};
 
 class ofApp : public ofBaseApp{
 
@@ -21,8 +32,10 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 		float step;
-		ofNode N;
+		myNode N;
 		ofNode Np;
 		ofPtr<ofxNodeTracer> Tracer;
+
+		ofxPanel GUI;
 		
 };

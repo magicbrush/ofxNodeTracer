@@ -3,6 +3,8 @@
 #include "ofMain.h"
 
 
+
+
 class ofxNodeTracer
 {
 public:
@@ -45,7 +47,7 @@ private:
 	{
 		ofPolyline ScaleL;
 		ofPolyline PosL;
-		deque<ofQuaternion> RotL;
+		ofPolyline RotL;
 		ofPolyline P;		
 	}Trace;
 
@@ -57,6 +59,8 @@ private:
 
 	// parameters
 	ofParameter<float> WtPos, WtRot, WtScale, WtTime;
+	ofParameter<int> SmoothSize;
+	
 	void WtPosChanged(float& value);
 	void WtRotChanged(float& value);
 	void WtScaleChanged(float& value);
